@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lead Follow-Up & CRM Tracker | Jay</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #172033;
+            line-height: 1.6;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        nav {
+            max-width: 1150px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #2563eb;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            color: #2563eb;
+        }
+
+
+        /* HERO */
+
+        .project-hero {
+            max-width: 1150px;
+            margin: auto;
+            padding: 80px 25px 50px;
+        }
+
+        .label {
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .project-hero h1 {
+            font-size: clamp(40px, 6vw, 65px);
+            line-height: 1.1;
+            margin: 15px 0;
+        }
+
+        .project-hero p {
+            max-width: 720px;
+            color: #64748b;
+            font-size: 18px;
+        }
+
+
+        /* INFO */
+
+        .project-info {
+            max-width: 1150px;
+            margin: auto;
+            padding: 0 25px 60px;
+
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .info-card h2 {
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: #64748b;
+        }
+
+        .details div {
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .details div:last-child {
+            border-bottom: none;
+        }
+
+        .details strong {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+
+        /* CRM */
+
+        .crm-section {
+            background: #0f172a;
+            padding: 80px 25px;
+            color: white;
+        }
+
+        .crm {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .crm-title {
+            margin-bottom: 30px;
+        }
+
+        .crm-title p {
+            color: #60a5fa;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .crm-title h2 {
+            font-size: 35px;
+            margin-top: 5px;
+        }
+
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #172033;
+            border: 1px solid #263248;
+            padding: 22px;
+            border-radius: 12px;
+        }
+
+        .stat-card span {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+            margin-top: 5px;
+        }
+
+
+        /* CONTROLS */
+
+        .controls {
+            background: #172033;
+            border: 1px solid #263248;
+            border-radius: 12px;
+            padding: 20px;
+
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+        }
+
+        .search-box input,
+        .filter select {
+            width: 100%;
+            padding: 12px 14px;
+
+            border: 1px solid #334155;
+            border-radius: 7px;
+
+            background: #0f172a;
+            color: white;
+
+            outline: none;
+        }
+
+        .search-box input:focus,
+        .filter select:focus {
+            border-color: #3b82f6;
+        }
+
+        .filter {
+            width: 200px;
+        }
+
+
+        /* TABLE */
+
+        .table-wrapper {
+            background: #172033;
+            border: 1px solid #263248;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th {
+            background: #1e293b;
+            color: #cbd5e1;
+            text-align: left;
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #263248;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #1e293b;
+        }
+
+
+        /* STATUS */
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .new {
+            background: #1e3a8a;
+            color: #93c5fd;
+        }
+
+        .contacted {
+            background: #713f12;
+            color: #fde68a;
+        }
+
+        .qualified {
+            background: #14532d;
+            color: #86efac;
+        }
+
+        .follow-up {
+            background: #581c87;
+            color: #d8b4fe;
+        }
+
+        .closed {
+            background: #3f3f46;
+            color: #d4d4d8;
+        }
+
+
+        /* FOLLOW-UP PIPELINE */
+
+        .pipeline-section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 80px 25px;
+        }
+
+        .pipeline-section h2 {
+            font-size: 35px;
+            margin-bottom: 30px;
+        }
+
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .pipeline-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .pipeline-card .number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #2563eb;
+        }
+
+        .pipeline-card p {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+
+        /* SKILLS */
+
+        .skills-section {
+            background: #eaf2ff;
+            padding: 80px 25px;
+        }
+
+        .skills {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .skills h2 {
+            font-size: 35px;
+            margin-bottom: 25px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill {
+            background: white;
+            border: 1px solid #dbe3ef;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #0f172a;
+            color: #94a3b8;
+        }
+
+
+        @media (max-width: 900px) {
+
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pipeline {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .filter {
+                width: 100%;
+            }
+
+            .pipeline {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+  
+        </div>
+
+        <a href="index.html">← Back to Portfolio</a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="project-hero">
+
+    <span class="label">
+        CRM • LEAD MANAGEMENT • FOLLOW-UP
+    </span>
+
+    <h1>
+        Lead Follow-Up & CRM Tracker
+    </h1>
+
+    <p>
+        A lead management system designed to organize prospects,
+        track communication, monitor follow-up dates, and maintain
+        an organized sales pipeline.
+    </p>
+
+</section>
+
+
+
+<!-- PROJECT INFORMATION -->
+
+<section class="project-info">
+
+    <div class="info-card">
+
+        <h2>
+            Project Overview
+        </h2>
+
+        <p>
+            This project demonstrates how a Virtual Assistant can
+            maintain an organized lead database and support
+            consistent client follow-up.
+        </p>
+
+        <br>
+
+        <p>
+            Leads are categorized by status and tracked according
+            to their latest interaction and next follow-up action.
+            This helps prevent missed follow-ups and keeps
+            information organized.
+        </p>
+
+    </div>
+
+
+    <div class="info-card details">
+
+        <h2>
+            Project Details
+        </h2>
+
+        <div>
+            <strong>ROLE</strong>
+            Virtual Assistant
+        </div>
+
+        <div>
+            <strong>TOOLS</strong>
+            HubSpot / Google Sheets
+        </div>
+
+        <div>
+            <strong>PROJECT TYPE</strong>
+            CRM & Lead Management
+        </div>
+
+        <div>
+            <strong>DATA</strong>
+            Fictional Lead Data
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- CRM DASHBOARD -->
+
+<section class="crm-section">
+
+    <div class="crm">
+
+        <div class="crm-title">
+
+            <p>
+                INTERACTIVE PROJECT PREVIEW
+            </p>
+
+            <h2>
+                Lead Management Dashboard
+            </h2>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <span>
+                    TOTAL LEADS
+                </span>
+
+                <h3>
+                    10
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    NEW
+                </span>
+
+                <h3>
+                    2
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    FOLLOW-UP
+                </span>
+
+                <h3>
+                    3
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    QUALIFIED
+                </span>
+
+                <h3>
+                    3
+                </h3>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="controls">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search lead, company, email..."
+                >
+
+            </div>
+
+
+            <div class="filter">
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Statuses
+                    </option>
+
+                    <option value="New">
+                        New
+                    </option>
+
+                    <option value="Contacted">
+                        Contacted
+                    </option>
+
+                    <option value="Qualified">
+                        Qualified
+                    </option>
+
+                    <option value="Follow-up">
+                        Follow-up
+                    </option>
+
+                    <option value="Closed">
+                        Closed
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Lead</th>
+                        <th>Company</th>
+                        <th>Email</th>
+                        <th>Source</th>
+                        <th>Last Contact</th>
+                        <th>Next Follow-Up</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="leadTable">
+
+
+                    <tr data-status="New">
+
+                        <td>John Carter</td>
+                        <td>Northstar Co.</td>
+                        <td>john@example.com</td>
+                        <td>Website</td>
+                        <td>Sep 26, 2026</td>
+                        <td>Sep 29, 2026</td>
+
+                        <td>
+                            <span class="status new">
+                                New
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Contacted">
+
+                        <td>Emily Davis</td>
+                        <td>Bright Solutions</td>
+                        <td>emily@example.com</td>
+                        <td>Referral</td>
+                        <td>Sep 25, 2026</td>
+                        <td>Sep 28, 2026</td>
+
+                        <td>
+                            <span class="status contacted">
+                                Contacted
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Qualified">
+
+                        <td>Robert Wilson</td>
+                        <td>Tech Hub</td>
+                        <td>robert@example.com</td>
+                        <td>LinkedIn</td>
+                        <td>Sep 24, 2026</td>
+                        <td>Sep 30, 2026</td>
+
+                        <td>
+                            <span class="status qualified">
+                                Qualified
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Follow-up">
+
+                        <td>Sophia Miller</td>
+                        <td>Digital Works</td>
+                        <td>sophia@example.com</td>
+                        <td>Website</td>
+                        <td>Sep 23, 2026</td>
+                        <td>Sep 28, 2026</td>
+
+                        <td>
+                            <span class="status follow-up">
+                                Follow-up
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Qualified">
+
+                        <td>Daniel Brown</td>
+                        <td>ABC Office</td>
+                        <td>daniel@example.com</td>
+                        <td>Referral</td>
+                        <td>Sep 22, 2026</td>
+                        <td>Oct 1, 2026</td>
+
+                        <td>
+                            <span class="status qualified">
+                                Qualified
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Follow-up">
+
+                        <td>Olivia Taylor</td>
+                        <td>Peak Consulting</td>
+                        <td>olivia@example.com</td>
+                        <td>Email Campaign</td>
+                        <td>Sep 21, 2026</td>
+                        <td>Sep 29, 2026</td>
+
+                        <td>
+                            <span class="status follow-up">
+                                Follow-up
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Contacted">
+
+                        <td>James Anderson</td>
+                        <td>Smart Services</td>
+                        <td>james@example.com</td>
+                        <td>Website</td>
+                        <td>Sep 20, 2026</td>
+                        <td>Sep 30, 2026</td>
+
+                        <td>
+                            <span class="status contacted">
+                                Contacted
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Qualified">
+
+                        <td>Ava Martinez</td>
+                        <td>Metro Business</td>
+                        <td>ava@example.com</td>
+                        <td>Referral</td>
+                        <td>Sep 19, 2026</td>
+                        <td>Oct 2, 2026</td>
+
+                        <td>
+                            <span class="status qualified">
+                                Qualified
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Follow-up">
+
+                        <td>William Thomas</td>
+                        <td>Cloud Services</td>
+                        <td>william@example.com</td>
+                        <td>LinkedIn</td>
+                        <td>Sep 18, 2026</td>
+                        <td>Sep 30, 2026</td>
+
+                        <td>
+                            <span class="status follow-up">
+                                Follow-up
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Closed">
+
+                        <td>Isabella Moore</td>
+                        <td>Creative Studio</td>
+                        <td>isabella@example.com</td>
+                        <td>Website</td>
+                        <td>Sep 15, 2026</td>
+                        <td>—</td>
+
+                        <td>
+                            <span class="status closed">
+                                Closed
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- PIPELINE -->
+
+<section class="pipeline-section">
+
+    <h2>
+        Lead Pipeline
+    </h2>
+
+
+    <div class="pipeline">
+
+        <div class="pipeline-card">
+
+            <div class="number">
+                2
+            </div>
+
+            <strong>
+                New
+            </strong>
+
+            <p>
+                Recently added leads
+            </p>
+
+        </div>
+
+
+        <div class="pipeline-card">
+
+            <div class="number">
+                2
+            </div>
+
+            <strong>
+                Contacted
+            </strong>
+
+            <p>
+                Initial contact completed
+            </p>
+
+        </div>
+
+
+        <div class="pipeline-card">
+
+            <div class="number">
+                3
+            </div>
+
+            <strong>
+                Qualified
+            </strong>
+
+            <p>
+                Potential opportunities
+            </p>
+
+        </div>
+
+
+        <div class="pipeline-card">
+
+            <div class="number">
+                3
+            </div>
+
+            <strong>
+                Follow-Up
+            </strong>
+
+            <p>
+                Requires another contact
+            </p>
+
+        </div>
+
+
+        <div class="pipeline-card">
+
+            <div class="number">
+                1
+            </div>
+
+            <strong>
+                Closed
+            </strong>
+
+            <p>
+                Completed or closed
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- SKILLS -->
+
+<section class="skills-section">
+
+    <div class="skills">
+
+        <h2>
+            Skills Demonstrated
+        </h2>
+
+        <div class="skill-list">
+
+            <span class="skill">
+                CRM Management
+            </span>
+
+            <span class="skill">
+                HubSpot
+            </span>
+
+            <span class="skill">
+                Lead Tracking
+            </span>
+
+            <span class="skill">
+                Follow-Up Management
+            </span>
+
+            <span class="skill">
+                Data Entry
+            </span>
+
+            <span class="skill">
+                Client Communication
+            </span>
+
+            <span class="skill">
+                Pipeline Management
+            </span>
+
+            <span class="skill">
+                Administrative Support
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<footer>
+
+    © 2026 Jay Chris Palentinos. All rights reserved.
+
+</footer>
+
+
+
+<!-- SEARCH + FILTER -->
+
+<script>
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
+
+    const rows =
+        document.querySelectorAll("#leadTable tr");
+
+
+    function filterLeads() {
+
+        const searchValue =
+            searchInput.value.toLowerCase();
+
+        const selectedStatus =
+            statusFilter.value;
+
+
+        rows.forEach(row => {
+
+            const rowText =
+                row.textContent.toLowerCase();
+
+            const rowStatus =
+                row.dataset.status;
+
+
+            const matchesSearch =
+                rowText.includes(searchValue);
+
+
+            const matchesStatus =
+                selectedStatus === "all" ||
+                rowStatus === selectedStatus;
+
+
+            if (
+                matchesSearch &&
+                matchesStatus
+            ) {
+
+                row.style.display = "";
+
+            } else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+    searchInput.addEventListener(
+        "input",
+        filterLeads
+    );
+
+
+    statusFilter.addEventListener(
+        "change",
+        filterLeads
+    );
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Client Information Database | Jay</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #172033;
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION */
+
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        nav {
+            max-width: 1150px;
+            margin: auto;
+            padding: 18px 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #2563eb;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            color: #2563eb;
+        }
+
+
+        /* HERO */
+
+        .project-hero {
+            max-width: 1150px;
+            margin: auto;
+            padding: 80px 25px 50px;
+        }
+
+        .label {
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .project-hero h1 {
+            font-size: clamp(40px, 6vw, 65px);
+            line-height: 1.1;
+            margin: 15px 0;
+        }
+
+        .project-hero p {
+            max-width: 720px;
+            color: #64748b;
+            font-size: 18px;
+        }
+
+
+        /* PROJECT INFORMATION */
+
+        .project-info {
+            max-width: 1150px;
+            margin: auto;
+            padding: 0 25px 60px;
+
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .info-card h2 {
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: #64748b;
+        }
+
+        .details div {
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .details div:last-child {
+            border-bottom: none;
+        }
+
+        .details strong {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+
+        /* DATABASE */
+
+        .database-section {
+            background: #0f172a;
+            padding: 80px 25px;
+            color: white;
+        }
+
+        .database {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .database-title {
+            margin-bottom: 30px;
+        }
+
+        .database-title p {
+            color: #60a5fa;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .database-title h2 {
+            font-size: 35px;
+            margin-top: 5px;
+        }
+
+
+        /* DATABASE STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #172033;
+            border: 1px solid #263248;
+            padding: 22px;
+            border-radius: 12px;
+        }
+
+        .stat-card span {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+            margin-top: 5px;
+        }
+
+
+        /* CONTROLS */
+
+        .controls {
+            background: #172033;
+            border: 1px solid #263248;
+            border-radius: 12px;
+            padding: 20px;
+
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+        }
+
+        .search-box input,
+        .filter select {
+            width: 100%;
+            padding: 12px 14px;
+
+            border: 1px solid #334155;
+            border-radius: 7px;
+
+            background: #0f172a;
+            color: white;
+
+            outline: none;
+        }
+
+        .search-box input:focus,
+        .filter select:focus {
+            border-color: #3b82f6;
+        }
+
+        .filter {
+            width: 200px;
+        }
+
+
+        /* TABLE */
+
+        .table-wrapper {
+            background: #172033;
+            border: 1px solid #263248;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th {
+            background: #1e293b;
+            color: #cbd5e1;
+            text-align: left;
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #263248;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #1e293b;
+        }
+
+
+        /* STATUS */
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .active {
+            background: #14532d;
+            color: #86efac;
+        }
+
+        .follow-up {
+            background: #713f12;
+            color: #fde68a;
+        }
+
+        .inactive {
+            background: #3f3f46;
+            color: #d4d4d8;
+        }
+
+
+        /* SKILLS */
+
+        .skills-section {
+            background: #eaf2ff;
+            padding: 80px 25px;
+        }
+
+        .skills {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .skills h2 {
+            font-size: 35px;
+            margin-bottom: 25px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill {
+            background: white;
+            border: 1px solid #dbe3ef;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #0f172a;
+            color: #94a3b8;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .filter {
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+           
+        </div>
+
+        <a href="index.html">← Back to Portfolio</a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="project-hero">
+
+    <span class="label">
+        ADMINISTRATIVE SUPPORT • DATA MANAGEMENT
+    </span>
+
+    <h1>
+        Client Information Database
+    </h1>
+
+    <p>
+        A structured client management system designed to
+        organize contact information, client status, service
+        details, and follow-up activities.
+    </p>
+
+</section>
+
+
+
+<!-- PROJECT INFORMATION -->
+
+<section class="project-info">
+
+
+    <div class="info-card">
+
+        <h2>
+            Project Overview
+        </h2>
+
+        <p>
+            This project demonstrates how I organize client
+            information into a structured and easy-to-manage
+            database.
+        </p>
+
+        <br>
+
+        <p>
+            The system allows users to quickly search for
+            clients, filter records by status, and review
+            important client information from a single location.
+        </p>
+
+    </div>
+
+
+    <div class="info-card details">
+
+        <h2>
+            Project Details
+        </h2>
+
+        <div>
+            <strong>ROLE</strong>
+            Virtual Assistant
+        </div>
+
+        <div>
+            <strong>TOOLS</strong>
+            Google Sheets / Excel
+        </div>
+
+        <div>
+            <strong>PROJECT TYPE</strong>
+            Administrative Support
+        </div>
+
+        <div>
+            <strong>DATA</strong>
+            Fictional Client Data
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- DATABASE -->
+
+<section class="database-section">
+
+    <div class="database">
+
+        <div class="database-title">
+
+            <p>
+                INTERACTIVE PROJECT PREVIEW
+            </p>
+
+            <h2>
+                Client Database
+            </h2>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <span>
+                    TOTAL CLIENTS
+                </span>
+
+                <h3 id="totalClients">
+                    8
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    ACTIVE
+                </span>
+
+                <h3 id="activeClients">
+                    5
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    FOLLOW-UP
+                </span>
+
+                <h3 id="followUpClients">
+                    2
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    INACTIVE
+                </span>
+
+                <h3 id="inactiveClients">
+                    1
+                </h3>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SEARCH / FILTER -->
+
+        <div class="controls">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search client, company, email..."
+                >
+
+            </div>
+
+
+            <div class="filter">
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Statuses
+                    </option>
+
+                    <option value="Active">
+                        Active
+                    </option>
+
+                    <option value="Follow-up">
+                        Follow-up
+                    </option>
+
+                    <option value="Inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Client</th>
+                        <th>Company</th>
+                        <th>Email</th>
+                        <th>Service</th>
+                        <th>Last Contact</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="clientTable">
+
+                    <tr data-status="Active">
+
+                        <td>Maria Santos</td>
+                        <td>Bright Solutions</td>
+                        <td>maria@example.com</td>
+                        <td>Admin Support</td>
+                        <td>Sep 24, 2026</td>
+
+                        <td>
+                            <span class="status active">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Active">
+
+                        <td>Daniel Cruz</td>
+                        <td>Northstar Co.</td>
+                        <td>daniel@example.com</td>
+                        <td>Data Entry</td>
+                        <td>Sep 23, 2026</td>
+
+                        <td>
+                            <span class="status active">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Follow-up">
+
+                        <td>Angela Reyes</td>
+                        <td>Peak Consulting</td>
+                        <td>angela@example.com</td>
+                        <td>Spreadsheet Support</td>
+                        <td>Sep 18, 2026</td>
+
+                        <td>
+                            <span class="status follow-up">
+                                Follow-up
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Active">
+
+                        <td>Michael Tan</td>
+                        <td>Tech Hub</td>
+                        <td>michael@example.com</td>
+                        <td>Customer Support</td>
+                        <td>Sep 22, 2026</td>
+
+                        <td>
+                            <span class="status active">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Inactive">
+
+                        <td>Sarah Lim</td>
+                        <td>Metro Business</td>
+                        <td>sarah@example.com</td>
+                        <td>Administrative Support</td>
+                        <td>Aug 30, 2026</td>
+
+                        <td>
+                            <span class="status inactive">
+                                Inactive
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Active">
+
+                        <td>Kevin Garcia</td>
+                        <td>ABC Office</td>
+                        <td>kevin@example.com</td>
+                        <td>Data Management</td>
+                        <td>Sep 20, 2026</td>
+
+                        <td>
+                            <span class="status active">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Follow-up">
+
+                        <td>Rachel Flores</td>
+                        <td>Digital Works</td>
+                        <td>rachel@example.com</td>
+                        <td>CRM Support</td>
+                        <td>Sep 16, 2026</td>
+
+                        <td>
+                            <span class="status follow-up">
+                                Follow-up
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Active">
+
+                        <td>James Navarro</td>
+                        <td>Smart Services</td>
+                        <td>james@example.com</td>
+                        <td>Customer Support</td>
+                        <td>Sep 21, 2026</td>
+
+                        <td>
+                            <span class="status active">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- SKILLS -->
+
+<section class="skills-section">
+
+    <div class="skills">
+
+        <h2>
+            Skills Demonstrated
+        </h2>
+
+        <div class="skill-list">
+
+            <span class="skill">
+                Data Entry
+            </span>
+
+            <span class="skill">
+                Client Database Management
+            </span>
+
+            <span class="skill">
+                Data Organization
+            </span>
+
+            <span class="skill">
+                Search & Filtering
+            </span>
+
+            <span class="skill">
+                Record Management
+            </span>
+
+            <span class="skill">
+                Follow-Up Tracking
+            </span>
+
+            <span class="skill">
+                Attention to Detail
+            </span>
+
+            <span class="skill">
+                Administrative Support
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<footer>
+
+    © 2026 Jay Chris Palentinos. All rights reserved.
+
+</footer>
+
+
+
+<!-- SEARCH AND FILTER -->
+
+<script>
+
+    const searchInput = document.getElementById("searchInput");
+
+    const statusFilter = document.getElementById("statusFilter");
+
+    const rows = document.querySelectorAll("#clientTable tr");
+
+
+    function filterClients() {
+
+        const searchValue =
+            searchInput.value.toLowerCase();
+
+        const selectedStatus =
+            statusFilter.value;
+
+
+        rows.forEach(row => {
+
+            const rowText =
+                row.textContent.toLowerCase();
+
+            const rowStatus =
+                row.dataset.status;
+
+
+            const matchesSearch =
+                rowText.includes(searchValue);
+
+
+            const matchesStatus =
+                selectedStatus === "all" ||
+                rowStatus === selectedStatus;
+
+
+            if (matchesSearch && matchesStatus) {
+
+                row.style.display = "";
+
+            } else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+    searchInput.addEventListener(
+        "input",
+        filterClients
+    );
+
+
+    statusFilter.addEventListener(
+        "change",
+        filterClients
+    );
+
+</script>
+
+
+</body>
+
+</html>

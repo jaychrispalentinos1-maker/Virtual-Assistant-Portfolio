@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sales & Expense Tracker | Jay</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #172033;
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION */
+
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        nav {
+            max-width: 1150px;
+            margin: auto;
+            padding: 18px 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #2563eb;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            color: #2563eb;
+        }
+
+
+        /* HERO */
+
+        .project-hero {
+            max-width: 1150px;
+            margin: auto;
+            padding: 80px 25px 50px;
+        }
+
+        .label {
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .project-hero h1 {
+            font-size: clamp(40px, 6vw, 65px);
+            line-height: 1.1;
+            margin: 15px 0;
+        }
+
+        .project-hero p {
+            max-width: 700px;
+            color: #64748b;
+            font-size: 18px;
+        }
+
+
+        /* PROJECT INFO */
+
+        .project-info {
+            max-width: 1150px;
+            margin: auto;
+            padding: 0 25px 60px;
+
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .info-card h2 {
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: #64748b;
+        }
+
+        .details div {
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .details div:last-child {
+            border-bottom: none;
+        }
+
+        .details strong {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+
+        /* DASHBOARD */
+
+        .dashboard-section {
+            background: #0f172a;
+            padding: 80px 25px;
+            color: white;
+        }
+
+        .dashboard {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .dashboard-title {
+            margin-bottom: 30px;
+        }
+
+        .dashboard-title p {
+            color: #60a5fa;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .dashboard-title h2 {
+            font-size: 35px;
+            margin-top: 5px;
+        }
+
+
+        /* STAT CARDS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #172033;
+            border: 1px solid #263248;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .stat-card span {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+            margin-top: 8px;
+        }
+
+
+        /* DASHBOARD GRID */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: #172033;
+            border: 1px solid #263248;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .dashboard-card h3 {
+            margin-bottom: 20px;
+        }
+
+
+        /* BAR CHART */
+
+        .bar-row {
+            margin-bottom: 18px;
+        }
+
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .bar-background {
+            height: 9px;
+            background: #263248;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            background: #3b82f6;
+            border-radius: 20px;
+        }
+
+
+        /* TRANSACTIONS */
+
+        .transactions-section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 80px 25px;
+        }
+
+        .transactions-section h2 {
+            font-size: 35px;
+            margin-bottom: 25px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th {
+            background: #172033;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #475569;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .income {
+            color: #15803d;
+            font-weight: 700;
+        }
+
+        .expense {
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+
+        /* SKILLS */
+
+        .skills-section {
+            background: #eaf2ff;
+            padding: 80px 25px;
+        }
+
+        .skills {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .skills h2 {
+            font-size: 35px;
+            margin-bottom: 25px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill {
+            background: white;
+            border: 1px solid #dbe3ef;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #0f172a;
+            color: #94a3b8;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+         
+        </div>
+
+       <a href="index.html">← Back to Portfolio</a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- PROJECT HERO -->
+
+<section class="project-hero">
+
+    <span class="label">
+        DATA MANAGEMENT • SPREADSHEET
+    </span>
+
+    <h1>
+        Sales & Expense Tracker
+    </h1>
+
+    <p>
+        A spreadsheet-based business tracking system designed
+        to organize transactions, monitor income and expenses,
+        and provide a simple financial overview.
+    </p>
+
+</section>
+
+
+
+<!-- PROJECT INFORMATION -->
+
+<section class="project-info">
+
+
+    <div class="info-card">
+
+        <h2>
+            Project Overview
+        </h2>
+
+        <p>
+            This project demonstrates how I organize and manage
+            business transaction data using spreadsheet tools.
+            The system allows transactions to be recorded,
+            categorized, reviewed, and summarized for easier
+            business monitoring.
+        </p>
+
+        <br>
+
+        <p>
+            The dashboard provides a quick overview of income,
+            expenses, net amount, transaction volume, and
+            expense categories.
+        </p>
+
+    </div>
+
+
+    <div class="info-card details">
+
+        <h2>
+            Project Details
+        </h2>
+
+        <div>
+            <strong>ROLE</strong>
+            Virtual Assistant
+        </div>
+
+        <div>
+            <strong>TOOLS</strong>
+            Excel / Google Sheets
+        </div>
+
+        <div>
+            <strong>PROJECT TYPE</strong>
+            Administrative Support
+        </div>
+
+        <div>
+            <strong>DATA</strong>
+            Sample Business Data
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- DASHBOARD -->
+
+<section class="dashboard-section">
+
+    <div class="dashboard">
+
+        <div class="dashboard-title">
+
+            <p>
+                PROJECT PREVIEW
+            </p>
+
+            <h2>
+                Financial Dashboard
+            </h2>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <span>
+                    TOTAL INCOME
+                </span>
+
+                <h3>
+                    ₱37,600
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    TOTAL EXPENSES
+                </span>
+
+                <h3>
+                    ₱6,600
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    NET AMOUNT
+                </span>
+
+                <h3>
+                    ₱31,000
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    TRANSACTIONS
+                </span>
+
+                <h3>
+                    12
+                </h3>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DASHBOARD CHARTS -->
+
+        <div class="dashboard-grid">
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Expenses by Category
+                </h3>
+
+
+                <div class="bar-row">
+
+                    <div class="bar-label">
+                        <span>Marketing</span>
+                        <span>₱1,500</span>
+                    </div>
+
+                    <div class="bar-background">
+                        <div class="bar" style="width: 100%;"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="bar-row">
+
+                    <div class="bar-label">
+                        <span>Utilities</span>
+                        <span>₱1,800</span>
+                    </div>
+
+                    <div class="bar-background">
+                        <div class="bar" style="width: 90%;"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="bar-row">
+
+                    <div class="bar-label">
+                        <span>Supplies</span>
+                        <span>₱1,950</span>
+                    </div>
+
+                    <div class="bar-background">
+                        <div class="bar" style="width: 75%;"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="bar-row">
+
+                    <div class="bar-label">
+                        <span>Software</span>
+                        <span>₱900</span>
+                    </div>
+
+                    <div class="bar-background">
+                        <div class="bar" style="width: 45%;"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="bar-row">
+
+                    <div class="bar-label">
+                        <span>Transportation</span>
+                        <span>₱450</span>
+                    </div>
+
+                    <div class="bar-background">
+                        <div class="bar" style="width: 25%;"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Income vs Expenses
+                </h3>
+
+                <p style="color:#94a3b8;">
+                    Income
+                </p>
+
+                <h2 style="color:#60a5fa;">
+                    ₱37,600
+                </h2>
+
+                <br>
+
+                <p style="color:#94a3b8;">
+                    Expenses
+                </p>
+
+                <h2>
+                    ₱6,600
+                </h2>
+
+                <br>
+
+                <p style="color:#94a3b8;">
+                    Net
+                </p>
+
+                <h2 style="color:#60a5fa;">
+                    ₱31,000
+                </h2>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- TRANSACTIONS -->
+
+<section class="transactions-section">
+
+    <h2>
+        Transaction Records
+    </h2>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Client / Source</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>Sep 1, 2026</td>
+
+                    <td class="income">
+                        Income
+                    </td>
+
+                    <td>
+                        Product Sales
+                    </td>
+
+                    <td>
+                        Office supplies order
+                    </td>
+
+                    <td>
+                        ABC Office
+                    </td>
+
+                    <td>
+                        ₱8,500
+                    </td>
+
+                    <td>
+                        Completed
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Sep 2, 2026</td>
+
+                    <td class="expense">
+                        Expense
+                    </td>
+
+                    <td>
+                        Supplies
+                    </td>
+
+                    <td>
+                        Printer ink and paper
+                    </td>
+
+                    <td>
+                        Office Depot
+                    </td>
+
+                    <td>
+                        ₱1,200
+                    </td>
+
+                    <td>
+                        Paid
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Sep 3, 2026</td>
+
+                    <td class="income">
+                        Income
+                    </td>
+
+                    <td>
+                        Service
+                    </td>
+
+                    <td>
+                        Administrative support
+                    </td>
+
+                    <td>
+                        Bright Solutions
+                    </td>
+
+                    <td>
+                        ₱6,500
+                    </td>
+
+                    <td>
+                        Completed
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Sep 4, 2026</td>
+
+                    <td class="expense">
+                        Expense
+                    </td>
+
+                    <td>
+                        Transportation
+                    </td>
+
+                    <td>
+                        Client meeting travel
+                    </td>
+
+                    <td>
+                        Local Transport
+                    </td>
+
+                    <td>
+                        ₱450
+                    </td>
+
+                    <td>
+                        Paid
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Sep 6, 2026</td>
+
+                    <td class="income">
+                        Income
+                    </td>
+
+                    <td>
+                        Product Sales
+                    </td>
+
+                    <td>
+                        Computer accessories
+                    </td>
+
+                    <td>
+                        Tech Hub
+                    </td>
+
+                    <td>
+                        ₱4,200
+                    </td>
+
+                    <td>
+                        Completed
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Sep 7, 2026</td>
+
+                    <td class="expense">
+                        Expense
+                    </td>
+
+                    <td>
+                        Software
+                    </td>
+
+                    <td>
+                        Productivity tools
+                    </td>
+
+                    <td>
+                        Software Vendor
+                    </td>
+
+                    <td>
+                        ₱900
+                    </td>
+
+                    <td>
+                        Paid
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+
+<!-- SKILLS -->
+
+<section class="skills-section">
+
+    <div class="skills">
+
+        <h2>
+            Skills Demonstrated
+        </h2>
+
+        <div class="skill-list">
+
+            <span class="skill">
+                Data Entry
+            </span>
+
+            <span class="skill">
+                Spreadsheet Management
+            </span>
+
+            <span class="skill">
+                Data Organization
+            </span>
+
+            <span class="skill">
+                Data Validation
+            </span>
+
+            <span class="skill">
+                Reporting
+            </span>
+
+            <span class="skill">
+                Basic Data Analysis
+            </span>
+
+            <span class="skill">
+                Attention to Detail
+            </span>
+
+            <span class="skill">
+                Administrative Support
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026 Jay Chris Palentinos. All rights reserved.
+
+</footer>
+
+
+</body>
+
+</html>

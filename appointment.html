@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Appointment Management | Jay</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #172033;
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION */
+
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        nav {
+            max-width: 1150px;
+            margin: auto;
+            padding: 18px 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #2563eb;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            color: #2563eb;
+        }
+
+
+        /* HERO */
+
+        .project-hero {
+            max-width: 1150px;
+            margin: auto;
+            padding: 80px 25px 50px;
+        }
+
+        .label {
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .project-hero h1 {
+            font-size: clamp(40px, 6vw, 65px);
+            line-height: 1.1;
+            margin: 15px 0;
+        }
+
+        .project-hero p {
+            max-width: 720px;
+            color: #64748b;
+            font-size: 18px;
+        }
+
+
+        /* PROJECT INFORMATION */
+
+        .project-info {
+            max-width: 1150px;
+            margin: auto;
+            padding: 0 25px 60px;
+
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .info-card h2 {
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: #64748b;
+        }
+
+        .details div {
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .details div:last-child {
+            border-bottom: none;
+        }
+
+        .details strong {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+
+        /* APPOINTMENT SYSTEM */
+
+        .appointment-section {
+            background: #0f172a;
+            padding: 80px 25px;
+            color: white;
+        }
+
+        .appointment {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .appointment-title {
+            margin-bottom: 30px;
+        }
+
+        .appointment-title p {
+            color: #60a5fa;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .appointment-title h2 {
+            font-size: 35px;
+            margin-top: 5px;
+        }
+
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #172033;
+            border: 1px solid #263248;
+            padding: 22px;
+            border-radius: 12px;
+        }
+
+        .stat-card span {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+            margin-top: 5px;
+        }
+
+
+        /* CONTROLS */
+
+        .controls {
+            background: #172033;
+            border: 1px solid #263248;
+            border-radius: 12px;
+            padding: 20px;
+
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+        }
+
+        .search-box input,
+        .filter select {
+            width: 100%;
+            padding: 12px 14px;
+
+            border: 1px solid #334155;
+            border-radius: 7px;
+
+            background: #0f172a;
+            color: white;
+
+            outline: none;
+        }
+
+        .search-box input:focus,
+        .filter select:focus {
+            border-color: #3b82f6;
+        }
+
+        .filter {
+            width: 200px;
+        }
+
+
+        /* TABLE */
+
+        .table-wrapper {
+            background: #172033;
+            border: 1px solid #263248;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        th {
+            background: #1e293b;
+            color: #cbd5e1;
+            text-align: left;
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #263248;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #1e293b;
+        }
+
+
+        /* STATUS */
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .confirmed {
+            background: #14532d;
+            color: #86efac;
+        }
+
+        .pending {
+            background: #713f12;
+            color: #fde68a;
+        }
+
+        .completed {
+            background: #1e3a8a;
+            color: #93c5fd;
+        }
+
+        .cancelled {
+            background: #450a0a;
+            color: #fca5a5;
+        }
+
+
+        /* CALENDAR */
+
+        .calendar-section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 80px 25px;
+        }
+
+        .calendar-section h2 {
+            font-size: 35px;
+            margin-bottom: 25px;
+        }
+
+        .calendar {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            padding: 20px 25px;
+            background: #172033;
+            color: white;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calendar-header h3 {
+            font-size: 20px;
+        }
+
+        .calendar-header span {
+            color: #94a3b8;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .day-name {
+            padding: 12px;
+            text-align: center;
+            background: #f1f5f9;
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .day {
+            min-height: 100px;
+            padding: 10px;
+            border-top: 1px solid #e5e7eb;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .day-number {
+            font-size: 13px;
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .appointment-item {
+            margin-top: 8px;
+            padding: 6px 8px;
+            border-radius: 5px;
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* SKILLS */
+
+        .skills-section {
+            background: #eaf2ff;
+            padding: 80px 25px;
+        }
+
+        .skills {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .skills h2 {
+            font-size: 35px;
+            margin-bottom: 25px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill {
+            background: white;
+            border: 1px solid #dbe3ef;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #0f172a;
+            color: #94a3b8;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .filter {
+                width: 100%;
+            }
+
+            .calendar {
+                overflow-x: auto;
+            }
+
+            .calendar-grid {
+                min-width: 700px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+          
+        </div>
+
+       <a href="index.html">← Back to Portfolio</a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="project-hero">
+
+    <span class="label">
+        ADMINISTRATIVE SUPPORT • SCHEDULING
+    </span>
+
+    <h1>
+        Appointment Management System
+    </h1>
+
+    <p>
+        A scheduling and appointment tracking system designed
+        to organize meetings, monitor appointment status, and
+        help prevent missed or overlapping schedules.
+    </p>
+
+</section>
+
+
+
+<!-- PROJECT INFORMATION -->
+
+<section class="project-info">
+
+
+    <div class="info-card">
+
+        <h2>
+            Project Overview
+        </h2>
+
+        <p>
+            This project demonstrates how a Virtual Assistant can
+            organize appointments and maintain an accurate
+            scheduling system.
+        </p>
+
+        <br>
+
+        <p>
+            The system provides an overview of upcoming appointments,
+            client information, meeting times, appointment status,
+            and scheduling notes.
+        </p>
+
+    </div>
+
+
+    <div class="info-card details">
+
+        <h2>
+            Project Details
+        </h2>
+
+        <div>
+            <strong>ROLE</strong>
+            Virtual Assistant
+        </div>
+
+        <div>
+            <strong>TOOLS</strong>
+            Google Calendar / Google Sheets
+        </div>
+
+        <div>
+            <strong>PROJECT TYPE</strong>
+            Administrative Support
+        </div>
+
+        <div>
+            <strong>DATA</strong>
+            Fictional Appointment Data
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- APPOINTMENT DASHBOARD -->
+
+<section class="appointment-section">
+
+    <div class="appointment">
+
+        <div class="appointment-title">
+
+            <p>
+                INTERACTIVE PROJECT PREVIEW
+            </p>
+
+            <h2>
+                Appointment Dashboard
+            </h2>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <span>
+                    TOTAL APPOINTMENTS
+                </span>
+
+                <h3>
+                    12
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    CONFIRMED
+                </span>
+
+                <h3>
+                    6
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    PENDING
+                </span>
+
+                <h3>
+                    3
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    COMPLETED
+                </span>
+
+                <h3>
+                    3
+                </h3>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SEARCH / FILTER -->
+
+        <div class="controls">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search client, service, or date..."
+                >
+
+            </div>
+
+
+            <div class="filter">
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Statuses
+                    </option>
+
+                    <option value="Confirmed">
+                        Confirmed
+                    </option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                    <option value="Completed">
+                        Completed
+                    </option>
+
+                    <option value="Cancelled">
+                        Cancelled
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- APPOINTMENT TABLE -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Client</th>
+                        <th>Service</th>
+                        <th>Meeting Type</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="appointmentTable">
+
+
+                    <tr data-status="Confirmed">
+
+                        <td>
+                            Sep 28, 2026
+                        </td>
+
+                        <td>
+                            9:00 AM
+                        </td>
+
+                        <td>
+                            Maria Santos
+                        </td>
+
+                        <td>
+                            Project Consultation
+                        </td>
+
+                        <td>
+                            Google Meet
+                        </td>
+
+                        <td>
+                            <span class="status confirmed">
+                                Confirmed
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Pending">
+
+                        <td>
+                            Sep 28, 2026
+                        </td>
+
+                        <td>
+                            11:00 AM
+                        </td>
+
+                        <td>
+                            Daniel Cruz
+                        </td>
+
+                        <td>
+                            Initial Consultation
+                        </td>
+
+                        <td>
+                            Zoom
+                        </td>
+
+                        <td>
+                            <span class="status pending">
+                                Pending
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Confirmed">
+
+                        <td>
+                            Sep 29, 2026
+                        </td>
+
+                        <td>
+                            10:30 AM
+                        </td>
+
+                        <td>
+                            Angela Reyes
+                        </td>
+
+                        <td>
+                            Spreadsheet Review
+                        </td>
+
+                        <td>
+                            Google Meet
+                        </td>
+
+                        <td>
+                            <span class="status confirmed">
+                                Confirmed
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Completed">
+
+                        <td>
+                            Sep 25, 2026
+                        </td>
+
+                        <td>
+                            2:00 PM
+                        </td>
+
+                        <td>
+                            Michael Tan
+                        </td>
+
+                        <td>
+                            Customer Support Review
+                        </td>
+
+                        <td>
+                            Microsoft Teams
+                        </td>
+
+                        <td>
+                            <span class="status completed">
+                                Completed
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Pending">
+
+                        <td>
+                            Sep 30, 2026
+                        </td>
+
+                        <td>
+                            1:00 PM
+                        </td>
+
+                        <td>
+                            Sarah Lim
+                        </td>
+
+                        <td>
+                            Follow-up Meeting
+                        </td>
+
+                        <td>
+                            Google Meet
+                        </td>
+
+                        <td>
+                            <span class="status pending">
+                                Pending
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Confirmed">
+
+                        <td>
+                            Oct 1, 2026
+                        </td>
+
+                        <td>
+                            9:30 AM
+                        </td>
+
+                        <td>
+                            Kevin Garcia
+                        </td>
+
+                        <td>
+                            Data Management Review
+                        </td>
+
+                        <td>
+                            Zoom
+                        </td>
+
+                        <td>
+                            <span class="status confirmed">
+                                Confirmed
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Completed">
+
+                        <td>
+                            Sep 24, 2026
+                        </td>
+
+                        <td>
+                            3:00 PM
+                        </td>
+
+                        <td>
+                            Rachel Flores
+                        </td>
+
+                        <td>
+                            CRM Consultation
+                        </td>
+
+                        <td>
+                            Google Meet
+                        </td>
+
+                        <td>
+                            <span class="status completed">
+                                Completed
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Confirmed">
+
+                        <td>
+                            Oct 2, 2026
+                        </td>
+
+                        <td>
+                            11:30 AM
+                        </td>
+
+                        <td>
+                            James Navarro
+                        </td>
+
+                        <td>
+                            Support Planning
+                        </td>
+
+                        <td>
+                            Microsoft Teams
+                        </td>
+
+                        <td>
+                            <span class="status confirmed">
+                                Confirmed
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Pending">
+
+                        <td>
+                            Oct 2, 2026
+                        </td>
+
+                        <td>
+                            2:00 PM
+                        </td>
+
+                        <td>
+                            Sophia Reyes
+                        </td>
+
+                        <td>
+                            Service Consultation
+                        </td>
+
+                        <td>
+                            Google Meet
+                        </td>
+
+                        <td>
+                            <span class="status pending">
+                                Pending
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Completed">
+
+                        <td>
+                            Sep 23, 2026
+                        </td>
+
+                        <td>
+                            10:00 AM
+                        </td>
+
+                        <td>
+                            Mark Villanueva
+                        </td>
+
+                        <td>
+                            Project Review
+                        </td>
+
+                        <td>
+                            Zoom
+                        </td>
+
+                        <td>
+                            <span class="status completed">
+                                Completed
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Confirmed">
+
+                        <td>
+                            Oct 3, 2026
+                        </td>
+
+                        <td>
+                            1:30 PM
+                        </td>
+
+                        <td>
+                            Patricia Gomez
+                        </td>
+
+                        <td>
+                            Administrative Consultation
+                        </td>
+
+                        <td>
+                            Google Meet
+                        </td>
+
+                        <td>
+                            <span class="status confirmed">
+                                Confirmed
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr data-status="Confirmed">
+
+                        <td>
+                            Oct 5, 2026
+                        </td>
+
+                        <td>
+                            10:30 AM
+                        </td>
+
+                        <td>
+                            Andrew Lim
+                        </td>
+
+                        <td>
+                            Data Entry Consultation
+                        </td>
+
+                        <td>
+                            Zoom
+                        </td>
+
+                        <td>
+                            <span class="status confirmed">
+                                Confirmed
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- CALENDAR PREVIEW -->
+
+<section class="calendar-section">
+
+    <h2>
+        Weekly Schedule Preview
+    </h2>
+
+    <div class="calendar">
+
+        <div class="calendar-header">
+
+            <h3>
+                September 28 – October 4, 2026
+            </h3>
+
+            <span>
+                Weekly View
+            </span>
+
+        </div>
+
+
+        <div class="calendar-grid">
+
+            <div class="day-name">MON</div>
+            <div class="day-name">TUE</div>
+            <div class="day-name">WED</div>
+            <div class="day-name">THU</div>
+            <div class="day-name">FRI</div>
+            <div class="day-name">SAT</div>
+            <div class="day-name">SUN</div>
+
+
+            <!-- MON -->
+
+            <div class="day">
+
+                <div class="day-number">
+                    Sep 28
+                </div>
+
+                <div class="appointment-item">
+                    9:00 AM<br>
+                    Maria Santos
+                </div>
+
+                <div class="appointment-item">
+                    11:00 AM<br>
+                    Daniel Cruz
+                </div>
+
+            </div>
+
+
+            <!-- TUE -->
+
+            <div class="day">
+
+                <div class="day-number">
+                    Sep 29
+                </div>
+
+                <div class="appointment-item">
+                    10:30 AM<br>
+                    Angela Reyes
+                </div>
+
+            </div>
+
+
+            <!-- WED -->
+
+            <div class="day">
+
+                <div class="day-number">
+                    Sep 30
+                </div>
+
+                <div class="appointment-item">
+                    1:00 PM<br>
+                    Sarah Lim
+                </div>
+
+            </div>
+
+
+            <!-- THU -->
+
+            <div class="day">
+
+                <div class="day-number">
+                    Oct 1
+                </div>
+
+                <div class="appointment-item">
+                    9:30 AM<br>
+                    Kevin Garcia
+                </div>
+
+            </div>
+
+
+            <!-- FRI -->
+
+            <div class="day">
+
+                <div class="day-number">
+                    Oct 2
+                </div>
+
+                <div class="appointment-item">
+                    11:30 AM<br>
+                    James Navarro
+                </div>
+
+                <div class="appointment-item">
+                    2:00 PM<br>
+                    Sophia Reyes
+                </div>
+
+            </div>
+
+
+            <!-- SAT -->
+
+            <div class="day">
+
+                <div class="day-number">
+                    Oct 3
+                </div>
+
+                <div class="appointment-item">
+                    1:30 PM<br>
+                    Patricia Gomez
+                </div>
+
+            </div>
+
+
+            <!-- SUN -->
+
+            <div class="day">
+
+                <div class="day-number">
+                    Oct 4
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- SKILLS -->
+
+<section class="skills-section">
+
+    <div class="skills">
+
+        <h2>
+            Skills Demonstrated
+        </h2>
+
+        <div class="skill-list">
+
+            <span class="skill">
+                Calendar Management
+            </span>
+
+            <span class="skill">
+                Appointment Scheduling
+            </span>
+
+            <span class="skill">
+                Schedule Organization
+            </span>
+
+            <span class="skill">
+                Client Communication
+            </span>
+
+            <span class="skill">
+                Follow-Up Tracking
+            </span>
+
+            <span class="skill">
+                Data Entry
+            </span>
+
+            <span class="skill">
+                Time Management
+            </span>
+
+            <span class="skill">
+                Administrative Support
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026 Jay Chris Palentinos. All rights reserved.
+
+</footer>
+
+
+
+<!-- SEARCH AND FILTER -->
+
+<script>
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
+
+    const rows =
+        document.querySelectorAll("#appointmentTable tr");
+
+
+    function filterAppointments() {
+
+        const searchValue =
+            searchInput.value.toLowerCase();
+
+        const selectedStatus =
+            statusFilter.value;
+
+
+        rows.forEach(row => {
+
+            const rowText =
+                row.textContent.toLowerCase();
+
+            const rowStatus =
+                row.dataset.status;
+
+
+            const matchesSearch =
+                rowText.includes(searchValue);
+
+
+            const matchesStatus =
+                selectedStatus === "all" ||
+                rowStatus === selectedStatus;
+
+
+            if (
+                matchesSearch &&
+                matchesStatus
+            ) {
+
+                row.style.display = "";
+
+            } else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+    searchInput.addEventListener(
+        "input",
+        filterAppointments
+    );
+
+
+    statusFilter.addEventListener(
+        "change",
+        filterAppointments
+    );
+
+</script>
+
+
+</body>
+
+</html>
